@@ -4,7 +4,6 @@ import time
 import numpy as np
 from gymnasium import Env
 from gymnasium.spaces import Discrete, Box
-import cv2
 
 game = DoomGame()
 game.load_config('doomGame/VizDoom/scenarios/basic.cfg')
