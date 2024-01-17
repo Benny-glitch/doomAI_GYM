@@ -5,7 +5,7 @@ from stable_baselines3.common.vec_env import DummyVecEnv
 from vizDoomGymEnv import VizDoomGym
 
 # Reload model from disc
-model = PPO.load('./train/train_basic/best_model_100000.zip')
+model = PPO.load('../../train/train_basic/best_model_100000.zip')
 # Create rendered environment
 original_env = DummyVecEnv([lambda: VizDoomGym(render=True)])
 

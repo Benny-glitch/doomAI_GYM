@@ -1,7 +1,6 @@
 import os
 from stable_baselines3.common.callbacks import BaseCallback
 from stable_baselines3 import PPO
-from stable_baselines3.common.vec_env import DummyVecEnv
 
 import vizDoomGymEnv
 
@@ -25,8 +24,8 @@ class TrainAndLoggingCallback(BaseCallback):
         return True
 
 
-CHECKPOINT_DIR = './train/train_basic'
-LOG_DIR = './logs/log_basic'
+CHECKPOINT_DIR = '../../train/train_basic'
+LOG_DIR = '../../logs/log_basic'
 callback = TrainAndLoggingCallback(check_freq=10000, save_path=CHECKPOINT_DIR)
 
 env = vizDoomGymEnv.VizDoomGym(render=True)
