@@ -1,6 +1,9 @@
 import time
+
+import requests
 from stable_baselines3 import PPO
 from stable_baselines3.common.vec_env import DummyVecEnv
+import json
 
 from vizDoomGymEnv import VizDoomGym
 
@@ -23,3 +26,5 @@ for episode in range(100):
         total_reward += reward
     print('Total Reward for episode {} is {}'.format(total_reward, episode))
     time.sleep(0.5)
+
+

@@ -1,13 +1,15 @@
 from typing import Union
-
+import json
+from fastapi.responses import JSONResponse
 from fastapi import FastAPI
+import os
 
 app = FastAPI()
 
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
+@app.post("/observations/")
+def observationUpdate(obs):
+    return
 
 
 @app.get("/items/{item_id}")

@@ -13,7 +13,7 @@ class VizDoomGym(Env):
         super().__init__()
         # Set up the game
         self.game = DoomGame()
-        self.game.load_config('doomGame/VizDoom/scenarios/basic.cfg')
+        self.game.load_config('../../doomGame/ViZDoom/scenarios/basic.cfg')
 
         # Bool Method game render or not
         if render == False:
@@ -63,5 +63,4 @@ class VizDoomGym(Env):
         return state
 
 
-env = VizDoomGym()
-env_checker.check_env(env)
+
