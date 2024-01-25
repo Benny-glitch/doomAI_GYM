@@ -1,5 +1,6 @@
 doomGame/
 _vizdoom.ini
 logs/
-train/
-.idea
+train_models/
+.idea/
+.idea/workspace.xml
