@@ -4,6 +4,15 @@ from gymnasium import Env
 from gymnasium.spaces import Discrete, Box
 from stable_baselines3.common import env_checker
 import cv2
+import utils.utils
+
+
+# GrayScale the game frame and resize
+def grayscale(observation):
+    gray = cv2.cvtColor(np.moveaxis(observation, 0, -1), cv2.COLOR_BGR2GRAY)
+    resize = cv2.resize(gray, (160, 100), interpolation=cv2.INTER_CUBIC)
+    state = np.reshape(resize, (100, 160, 1))
+    return state
 
 
 class VizDoomGym(Env):
@@ -13,7 +22,7 @@ class VizDoomGym(Env):
         super().__init__()
         # Set up the game
         self.game = DoomGame()
-        self.game.load_config('/Users/benedettotesta/PycharmProjects/doomAI/doomGame/ViZDoom/scenarios/basic.cfg')
+        self.game.load_config(utils.utils.CONFIG_PATH)
 
         # Bool Method game render or not
         if render == False:
@@ -33,7 +42,7 @@ class VizDoomGym(Env):
 
         if self.game.get_state():
             state = self.game.get_state().screen_buffer
-            state = self.grayscale(state)
+            state = grayscale(state)
             ammo = self.game.get_state().game_variables[0]
             info = {"info": ammo}
         else:
@@ -51,13 +60,6 @@ class VizDoomGym(Env):
     def reset(self, **kwargs):
         self.game.new_episode()
         state = self.game.get_state().screen_buffer
-        observations = self.grayscale(state)
+        observations = grayscale(state)
         info = {}  # Usa un dizionario vuoto se non hai informazioni di reset da restituire
         return observations, info
-
-    # GrayScale the game frame and resize
-    def grayscale(self, observation):
-        gray = cv2.cvtColor(np.moveaxis(observation, 0, -1), cv2.COLOR_BGR2GRAY)
-        resize = cv2.resize(gray, (160, 100), interpolation=cv2.INTER_CUBIC)
-        state = np.reshape(resize, (100, 160, 1))
-        return state
