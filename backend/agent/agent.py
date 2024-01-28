@@ -1,14 +1,10 @@
 import time
-
-import requests
 from stable_baselines3 import PPO
 from stable_baselines3.common.vec_env import DummyVecEnv
-import json
-
 from vizDoomGymEnv import VizDoomGym
 
 # Reload model from disc
-model = PPO.load('../../train/train_basic/best_model_100000.zip')
+model = PPO.load('../../train_models/train_basic/best_model_100000.zip')
 # Create rendered environment
 original_env = DummyVecEnv([lambda: VizDoomGym(render=True)])
 
@@ -26,5 +22,3 @@ for episode in range(100):
         total_reward += reward
     print('Total Reward for episode {} is {}'.format(total_reward, episode))
     time.sleep(0.5)
-
-

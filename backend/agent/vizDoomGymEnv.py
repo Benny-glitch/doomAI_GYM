@@ -13,7 +13,7 @@ class VizDoomGym(Env):
         super().__init__()
         # Set up the game
         self.game = DoomGame()
-        self.game.load_config('../../doomGame/ViZDoom/scenarios/basic.cfg')
+        self.game.load_config('/Users/benedettotesta/PycharmProjects/doomAI/doomGame/ViZDoom/scenarios/basic.cfg')
 
         # Bool Method game render or not
         if render == False:
@@ -61,6 +61,3 @@ class VizDoomGym(Env):
         resize = cv2.resize(gray, (160, 100), interpolation=cv2.INTER_CUBIC)
         state = np.reshape(resize, (100, 160, 1))
         return state
-
-
-
