@@ -5,8 +5,8 @@ from stable_baselines3 import PPO
 from backend.agent.vizDoomGymEnv import VizDoomGym
 from backend.agent.gameTrainer import TrainAndLoggingCallback
 
-CHECKPOINT_DIR = '../../train/train_test'
-LOG_DIR = '../../logs/log_test'
+CHECKPOINT_DIR = '../train/train_test'
+LOG_DIR = '../logs/log_test'
 
 
 class TestTraining:

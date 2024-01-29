@@ -2,9 +2,8 @@ from vizdoom import *
 import numpy as np
 from gymnasium import Env
 from gymnasium.spaces import Discrete, Box
-from stable_baselines3.common import env_checker
 import cv2
-import utils.utils
+import utils
 
 
 # GrayScale the game frame and resize
@@ -22,7 +21,7 @@ class VizDoomGym(Env):
         super().__init__()
         # Set up the game
         self.game = DoomGame()
-        self.game.load_config(utils.utils.CONFIG_PATH)
+        self.game.load_config(utils.CONFIG_PATH)
 
         # Bool Method game render or not
         if render == False:
