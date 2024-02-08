@@ -16,12 +16,12 @@ def grayscale(observation):
 
 class VizDoomGym(Env):
     # Method called for the init of the Env
-    def __init__(self, render=False):
+    def __init__(self, render=False, scenarios=utils.DEADLY_CONFIG_PATH):
         # Inherit from Env
         super().__init__()
         # Set up the game
         self.game = DoomGame()
-        self.game.load_config(utils.CONFIG_PATH)
+        self.game.load_config(scenarios)
 
         # Bool Method game render or not
         if render == False:
@@ -33,16 +33,32 @@ class VizDoomGym(Env):
 
         # Creation of the action and the observation space
         self.observation_space = Box(low=0, high=255, shape=(100, 160, 1), dtype=np.uint8)
-        self.action_space = Discrete(3)
+        self.action_space = Discrete(7)
+
+        self.damage_take = 0
+        self.hitcount = 0
+        self.ammo = 60
 
     def step(self, action):
-        actions = np.identity(3)
-        reward = self.game.make_action(actions[action], 4)
+        actions = np.identity(7)
+        movement_reward = self.game.make_action(actions[action], 4)
 
         if self.game.get_state():
             state = self.game.get_state().screen_buffer
             state = grayscale(state)
-            ammo = self.game.get_state().game_variables[0]
+            # Reward shaping
+            game_variables = self.game.get_state().game_variables
+            health, damage_take, hitcount, ammo = game_variables
+
+            damage_take_delta = damage_take + self.damage_take
+            self.damage_take = damage_take
+            hitcount_delta = hitcount - self.hitcount
+            self.hitcount = hitcount_delta
+            ammo_delta = ammo - self.ammo
+            self.ammo = ammo
+
+            reward = movement_reward + damage_take_delta*10 + hitcount_delta*200 + ammo_delta*5
+
             info = {"info": ammo}
         else:
             state = np.zeros(self.observation_space.shape)
@@ -50,7 +66,7 @@ class VizDoomGym(Env):
 
         done = self.game.is_episode_finished()
 
-        return state, reward, done, False, info
+        return state, movement_reward, done, False, info
 
     def close(self):
         self.game.close()

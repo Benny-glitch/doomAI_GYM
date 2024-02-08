@@ -1,7 +1,7 @@
 import pytest
 import numpy as np
 from gymnasium.spaces import Discrete, Box
-from backend.agent.vizDoomGymEnv import VizDoomGym
+from backend.basic_agent.vizDoomGymEnv import VizDoomGym
 
 
 class TestVizDoomGym:

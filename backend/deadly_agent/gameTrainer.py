@@ -1,17 +1,17 @@
 import os
 from stable_baselines3.common.callbacks import BaseCallback
 from stable_baselines3 import PPO
-import backend.agent.vizDoomGymEnv as vizDoomGymEnv
+import backend.deadly_agent.vizDoomGymEnv as vizDoomGymEnv
 
-CHECKPOINT_DIR = '../../train/train_basic'
-LOG_DIR = '../../logs/log_basic'
+CHECKPOINT_DIR = '../../train/train_deadly'
+LOG_DIR = '../../logs/log_deadly'
 
 
-def start_training():
-    callback = TrainAndLoggingCallback(check_freq=10000, save_path=CHECKPOINT_DIR)
+def start_training(tot_steps,feq_saving):
+    callback = TrainAndLoggingCallback(check_freq=50000, save_path=CHECKPOINT_DIR)
     env = vizDoomGymEnv.VizDoomGym(render=True)
-    model = PPO('CnnPolicy', env, tensorboard_log=LOG_DIR, verbose=1, learning_rate=0.0001, n_steps=2048)
-    model.learn(total_timesteps=100000, callback=callback)
+    model = PPO('CnnPolicy', env, tensorboard_log=LOG_DIR, verbose=1, learning_rate=0.00001, n_steps=8192, clip_range=.1, gamma=.95, gae_lambda=.9)
+    model.learn(total_timesteps=500000, callback=callback)
 
 
 class TrainAndLoggingCallback(BaseCallback):
@@ -31,3 +31,6 @@ class TrainAndLoggingCallback(BaseCallback):
 
         return True
 
+
+if __name__ == '__main__':
+    start_training()

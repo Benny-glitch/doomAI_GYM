@@ -1,12 +1,14 @@
 import os
-import numpy as np
 import pytest
 from stable_baselines3 import PPO
-from backend.agent.vizDoomGymEnv import VizDoomGym
-from backend.agent.gameTrainer import TrainAndLoggingCallback
+from backend.basic_agent.vizDoomGymEnv import VizDoomGym
+from backend.basic_agent.gameTrainer import TrainAndLoggingCallback
 
 CHECKPOINT_DIR = '../train/train_test'
 LOG_DIR = '../logs/log_test'
+n_steps = 2
+n_envs = 1
+batch_size = n_steps * n_envs
 
 
 class TestTraining:
@@ -19,8 +21,8 @@ class TestTraining:
         return VizDoomGym(render=False)
 
     def test_start_training(self, callback, env):
-        model = PPO('CnnPolicy', env, tensorboard_log=LOG_DIR, verbose=1, learning_rate=0.0001, n_steps=2)
-        model.learn(total_timesteps=10, callback=callback)
+        model = PPO('CnnPolicy', env, tensorboard_log=LOG_DIR, verbose=1, learning_rate=0.0001, n_steps=n_steps, batch_size=batch_size)
+        model.learn(total_timesteps=8, callback=callback)
 
         assert os.path.exists(CHECKPOINT_DIR)  # Check if the checkpoint directory was created
         assert os.path.exists(os.path.join(CHECKPOINT_DIR, 'best_model_10.zip'))  # Check if a model file was saved
