@@ -2,7 +2,7 @@ import os
 import pytest
 from stable_baselines3 import PPO
 from backend.basic_agent.vizDoomGymEnv import VizDoomGym
-from backend.basic_agent.gameTrainer import TrainAndLoggingCallback
+from local.gameTrainer import TrainAndLoggingCallback
 
 CHECKPOINT_DIR = '../train/train_test'
 LOG_DIR = '../logs/log_test'
