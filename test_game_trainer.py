@@ -22,7 +22,7 @@ class TestTraining:
 
     def test_init(self, callback):
         # Verifica che i parametri vengano inizializzati correttamente
-        assert callback.check_freq == 10
+        assert callback.check_freq == 8
         assert callback.save_path == "../train/train_test"
 
     def test_init_callback(self, callback, tmpdir):
