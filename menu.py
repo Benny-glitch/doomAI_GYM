@@ -1,7 +1,8 @@
 from termcolor import colored
 from pyfiglet import Figlet
 import six
-
+import local.gameTrainer as game_trainer
+import local.agent as game_agent
 import utils
 import subprocess
 
@@ -40,10 +41,10 @@ def play_ai():
     while invalid_opt:
         if int(choice) == 1:
             invalid_opt = False
-            agent.agent_init(utils.BASIC_CONFIG_PATH)
+            game_agent.agent_init(utils.BASIC_CONFIG_PATH)
         if int(choice) == 2:
             invalid_opt = False
-            agent.agent_init(utils.DEADLY_CONFIG_PATH)
+            game_agent.agent_init(utils.DEADLY_CONFIG_PATH)
 
 
 def train_ai():
@@ -58,13 +59,13 @@ def train_ai():
             print("Inserisci la frequenza di salvataggio: ")
             freq = input()
             invalid_opt = False
-            game_train_basic.start_training(tot_steps=int(tot_step),feq_saving=int(freq))
+            game_trainer.start_training(tot_steps=int(tot_step),feq_saving=int(freq))
         if int(choice) == 2:
             print("Inserisci il numero di step totali da effettuare: ")
             tot_step = input()
             print("Inserisci la frequenza di salvataggio: ")
             freq = input()
-            game_train_deadly.start_training(tot_steps=tot_step, feq_saving=freq)
+            game_trainer.start_training(tot_steps=tot_step, feq_saving=freq)
             invalid_opt = False
 
 
