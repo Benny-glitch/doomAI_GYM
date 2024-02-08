@@ -1,3 +1,5 @@
+import sys
+
 from termcolor import colored
 from pyfiglet import Figlet
 import six
@@ -35,38 +37,17 @@ def options_menu():
 
 def play_ai():
     invalid_opt = True
-    log("1. BASIC ENVIRONMENT", "dark_grey", None)
-    log("2. DEADLY CORRIDOR ENVIRONMENT", "dark_grey", None)
-    choice = input()
-    while invalid_opt:
-        if int(choice) == 1:
-            invalid_opt = False
-            game_agent.agent_init(utils.BASIC_CONFIG_PATH)
-        if int(choice) == 2:
-            invalid_opt = False
-            game_agent.agent_init(utils.DEADLY_CONFIG_PATH)
+    log("-----BASIC ENVIRONMENT-----", "dark_grey", None)
+    game_agent.agent_init(utils.BASIC_CONFIG_PATH)
 
 
 def train_ai():
-    invalid_opt = True
-    log("1. BASIC ENVIRONMENT", "dark_grey", None)
-    log("2. DEADLY CORRIDOR ENVIRONMENT", "dark_grey", None)
-    choice = input()
-    while invalid_opt:
-        if int(choice) == 1:
-            print("Inserisci il numero di step totali da effettuare: ")
-            tot_step = input()
-            print("Inserisci la frequenza di salvataggio: ")
-            freq = input()
-            invalid_opt = False
-            game_trainer.start_training(tot_steps=int(tot_step),feq_saving=int(freq))
-        if int(choice) == 2:
-            print("Inserisci il numero di step totali da effettuare: ")
-            tot_step = input()
-            print("Inserisci la frequenza di salvataggio: ")
-            freq = input()
-            game_trainer.start_training(tot_steps=tot_step, feq_saving=freq)
-            invalid_opt = False
+    log("-----BASIC ENVIRONMENT-----", "dark_grey", None)
+    print("Inserisci il numero di step totali da effettuare: ")
+    tot_step = input()
+    print("Inserisci la frequenza di salvataggio: ")
+    freq = input()
+    game_trainer.start_training(tot_steps=int(tot_step), feq_saving=int(freq))
 
 
 def train_ai_remote():
@@ -78,8 +59,8 @@ def train_ai_remote():
                                 stderr=subprocess.PIPE)
     stdout, stderr = processo.communicate()
 
-    # Stampa l'output e l'eventuale errore
-    print("Output:", stdout.decode())
+
+
 
 
 def load_different_model():
@@ -88,4 +69,3 @@ def load_different_model():
 
 if __name__ == "__main__":
     options_menu()
-

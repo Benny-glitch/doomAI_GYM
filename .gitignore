@@ -90,7 +90,7 @@ modules.xml
 
 _vizdoom.ini
 logs/
-train_models/
+logs/train_models/
 .idea/
 .idea/workspace.xml
 

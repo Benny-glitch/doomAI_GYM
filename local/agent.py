@@ -5,9 +5,8 @@ import utils
 from backend.basic_agent.vizDoomGymEnv import VizDoomGym as VizDoomGym_basic
 
 
-def agent_init(scenarios):
+def agent_init(scenarios, model=PPO.load(utils.TRAIN_PATH_BASIC + 'best_model_100000.zip')):
     # Model loading and env init
-    model = PPO.load(utils.TRAIN_PATH_BASIC + 'best_model_100000.zip')
     original_env = DummyVecEnv([lambda: VizDoomGym_basic(render=True, scenarios=scenarios)])
     # Create rendered environment
     for episode in range(100):

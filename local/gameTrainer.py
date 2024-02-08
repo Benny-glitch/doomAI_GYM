@@ -3,7 +3,7 @@ from stable_baselines3.common.callbacks import BaseCallback
 from stable_baselines3 import PPO
 import backend as viz_doom_gym_env
 
-CHECKPOINT_DIR = '../../train/train_basic'
+CHECKPOINT_DIR = '../logs/train_models'
 LOG_DIR = '../logs/log_basic'
 
 
