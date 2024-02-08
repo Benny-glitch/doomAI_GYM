@@ -1,16 +1,15 @@
 import time
 from stable_baselines3 import PPO
 from stable_baselines3.common.vec_env import DummyVecEnv
-
 import utils
-from backend.deadly_agent.vizDoomGymEnv import VizDoomGym
+from backend.basic_agent.vizDoomGymEnv import VizDoomGym as VizDoomGym_basic
 
 
 def agent_init(scenarios):
-    # Reload model from disc
-    model = PPO.load(utils.TRAIN_PATH_DEADLY + "best_model_100000.zip")
+    # Model loading and env init
+    model = PPO.load(utils.TRAIN_PATH_BASIC + 'best_model_100000.zip')
+    original_env = DummyVecEnv([lambda: VizDoomGym_basic(render=True, scenarios=scenarios)])
     # Create rendered environment
-    original_env = DummyVecEnv([lambda: VizDoomGym(render=True, scenarios=scenarios)])
     for episode in range(100):
         obs = original_env.reset()
         done = False

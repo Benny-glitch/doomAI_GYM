@@ -10,8 +10,6 @@ services:
       - EPOCHS=10
     volumes:
       - ./dockerVolume:/usr/share/app
-    networks:
-      - my_network
 
   doom-ai-app-1:
     build:
@@ -24,24 +22,3 @@ services:
       - EPOCHS=10
     volumes:
       - ./dockerVolume:/usr/share/app
-    networks:
-      - my_network
-
-  doom-ai-app-2:
-    build:
-      context: .
-      dockerfile: docker_files/agent_backend.Dockerfile
-
-    ports:
-      - "8082:8080"
-    environment:
-      - PYTHONUNBUFFERED=1
-      - EPOCHS=10
-    volumes:
-      - ./dockerVolume:/usr/share/app
-    networks:
-      - my_network
-
-networks:
-  my_network:
-    driver: bridge

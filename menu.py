@@ -1,10 +1,7 @@
 from termcolor import colored
 from pyfiglet import Figlet
 import six
-import backend as basic_agent
-import backend.deadly_agent.agent as deadly_agent
-import backend as game_train_basic
-import backend.deadly_agent.gameTrainer as game_train_deadly
+
 import utils
 import subprocess
 
@@ -43,10 +40,10 @@ def play_ai():
     while invalid_opt:
         if int(choice) == 1:
             invalid_opt = False
-            basic_agent.agent_init(utils.BASIC_CONFIG_PATH)
+            agent.agent_init(utils.BASIC_CONFIG_PATH)
         if int(choice) == 2:
             invalid_opt = False
-            deadly_agent.agent_init(utils.DEADLY_CONFIG_PATH)
+            agent.agent_init(utils.DEADLY_CONFIG_PATH)
 
 
 def train_ai():
@@ -73,7 +70,7 @@ def train_ai():
 
 def train_ai_remote():
     # Percorso del file docker-compose.yml
-    compose_file = "../docker-compose.yml"
+    compose_file = "docker-compose.yml"
 
     # Esegui il comando docker-compose up
     processo = subprocess.Popen(["docker-compose", "-f", compose_file, "up", "-d"], stdout=subprocess.PIPE,

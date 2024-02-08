@@ -20,6 +20,17 @@ class TestTraining:
     def env(self):
         return VizDoomGym(render=False)
 
+    def test_init(self, callback):
+        # Verifica che i parametri vengano inizializzati correttamente
+        assert callback.check_freq == 10
+        assert callback.save_path == "../train/train_test"
+
+    def test_init_callback(self, callback, tmpdir):
+        # Verifica che la directory di salvataggio venga creata correttamente
+        callback.save_path = str(tmpdir.join("../train/train_test"))
+        callback._init_callback()
+        assert os.path.exists(callback.save_path)
+
     def test_start_training(self, callback, env):
         model = PPO('CnnPolicy', env, tensorboard_log=LOG_DIR, verbose=1, learning_rate=0.0001, n_steps=n_steps, batch_size=batch_size)
         model.learn(total_timesteps=8, callback=callback)
